@@ -1,3 +1,4 @@
+/* Reset y estilos globales */
 * {
     margin: 0;
     padding: 0;
@@ -5,6 +6,7 @@
     font-family: "Comic Neue", serif;
 }
 
+/* Estilos para el body */
 body {
     min-height: 100vh;
     display: grid;
@@ -13,6 +15,7 @@ body {
     overflow: hidden;
 }
 
+/* Encabezado y mensaje */
 #encabezado-container {
     display: flex;
     justify-content: center;
@@ -24,7 +27,7 @@ body {
 #brillo {
     font-size: 60px;
     font-weight: bold;
-    color: rgba(255, 0, 102, 0.8); /* Se aumentó la opacidad para mejor visibilidad */
+    color: rgba(255, 0, 102, 0.8);
     z-index: 10;
     background: linear-gradient(to right, #222, #fff, #222);
     background-size: 150px;
@@ -40,57 +43,76 @@ body {
     100% { background-position: 1000px; }
 }
 
+/* Galería de imágenes */
 .galeria {
-    --d: 10s; 
-    display: grid;
-    place-items: center;
+    position: relative;
     width: 220px;
-    margin-left: auto; /* Se centró la galería */
-    margin-right: auto;
+    height: 220px;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
-.galeria > img {
-    grid-area: 1/1;
+/* Cada imagen se posiciona de forma absoluta para superponerse */
+.galeria img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    aspect-ratio: 1;
+    height: 100%;
     object-fit: cover;
     border: 10px solid #f2f2f2;
     box-shadow: 0 0 4px #0007;
-    z-index: 2;
-    animation: slide var(--d) infinite, z-order var(--d) infinite steps(1);
+    opacity: 0;
+    /* Duración total de la animación: 36s (9 imágenes x 4s) */
+    animation: slide 36s infinite;
 }
 
-.galeria img:last-child {
-    animation-name: slide, z-order-last;
-}
+/* Asigna retrasos para que cada imagen se muestre en orden (4s de diferencia) */
+.galeria img:nth-child(1) { animation-delay: 0s; }
+.galeria img:nth-child(2) { animation-delay: 4s; }
+.galeria img:nth-child(3) { animation-delay: 8s; }
+.galeria img:nth-child(4) { animation-delay: 12s; }
+.galeria img:nth-child(5) { animation-delay: 16s; }
+.galeria img:nth-child(6) { animation-delay: 20s; }
+.galeria img:nth-child(7) { animation-delay: 24s; }
+.galeria img:nth-child(8) { animation-delay: 28s; }
+.galeria img:nth-child(9) { animation-delay: 32s; }
 
-.galeria > img:nth-child(1) { animation-delay: calc(0 * var(--d)); --r: 16deg; }
-.galeria > img:nth-child(2) { animation-delay: calc(-0.2 * var(--d)); --r: -1deg; }
-.galeria > img:nth-child(3) { animation-delay: calc(-0.4 * var(--d)); --r: -19deg; }
-.galeria > img:nth-child(4) { animation-delay: calc(-0.6 * var(--d)); --r: 6deg; }
-.galeria > img:nth-child(5) { animation-delay: calc(-0.8 * var(--d)); --r: -8deg; }
-
+/* Animación para que cada imagen entre, se muestre y salga */
 @keyframes slide {
-    10% { transform: translateX(120%) rotate(var(--r)); }
-    0%, 100%, 20% { transform: translateX(0%) rotate(var(--r)); }
+    /* Inicio: imagen oculta a la derecha */
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    /* Rápida entrada */
+    5% {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+    /* Se mantiene visible */
+    16.67% {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+    /* Salida: se desvanece y se desplaza a la izquierda */
+    21.67% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    /* Resto del ciclo: imagen oculta */
+    100% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
 }
 
-@keyframes z-order {
-    10%, 20% { z-index: 1; }
-    80% { z-index: 2; }
-}
-
-@keyframes z-order-last {
-    10%, 20% { z-index: 1; }
-    90% { z-index: 2; }
-}
-
+/* Media query para dispositivos móviles */
 @media only screen and (max-width: 600px) {
     #brillo { font-size: 22px; }
     
     .galeria {
         width: 150px;
-        margin-left: auto;
-        margin-right: auto;
+        height: 150px;
     }
 }
