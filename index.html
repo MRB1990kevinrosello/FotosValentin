@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"> <!-- kelopene -->
+  <title>San Valentín</title> <!-- kelopene -->
+  <style>
+    body {
+      text-align: center;
+      font-family: sans-serif;
+      background: #f0e6e6; /* kelopene */
+    }
+    h1 {
+      margin-top: 20px;
+      color: #d6336c; /* kelopene */
+    }
+    #gallery {
+      position: relative;
+      width: 600px;
+      height: 400px;
+      margin: 0 auto;
+      overflow: hidden; /* kelopene */
+    }
+    #gallery img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      max-width: 100%;
+      max-height: 100%;
+      transform: translate(-50%, -50%);
+      object-fit: contain; /* kelopene */
+      opacity: 0;
+      transition: opacity 1s ease-in-out; /* kelopene */
+    }
+    #gallery img.active {
+      opacity: 1; /* kelopene */
+    }
+  </style>
+</head>
+<body>
+  <h1>San Valentín</h1> <!-- kelopene -->
+  <div id="gallery">
+    <img src="0.jpg" class="active" alt="Imagen 1"> <!-- kelopene -->
+    <img src="2.jpg" alt="Imagen 2"> <!-- kelopene -->
+    <img src="11.jpg" alt="Imagen 3"> <!-- kelopene -->
+    <img src="22.jpg" alt="Imagen 4"> <!-- kelopene -->
+    <img src="33.jpg" alt="Imagen 5"> <!-- kelopene -->
+    <img src="44.jpg" alt="Imagen 6"> <!-- kelopene -->
+    <img src="foto1.jpg" alt="Imagen 7"> <!-- kelopene -->
+    <img src="Foto3.jpg" alt="Imagen 8"> <!-- kelopene -->
+    <img src="foto8.jpg" alt="Imagen 9"> <!-- kelopene -->
+</div>
+<script>
+  const images = document.querySelectorAll('#gallery img'); // kelopene
+  let current = 0; // kelopene
+  const total = images.length; // kelopene
+
+  setInterval(() => { // kelopene
+    images[current].classList.remove('active'); // kelopene
+    current = (current + 1) % total; // kelopene
+    images[current].classList.add('active'); // kelopene
+  }, 3000); // Se cambia cada 3 segundos, kelopene
+</script>
+</body>
+</html>
+
+
+
